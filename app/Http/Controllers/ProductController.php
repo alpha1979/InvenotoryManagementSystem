@@ -9,6 +9,16 @@ use Illuminate\Support\Facades\Session;
 
 class ProductController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     //
 
     public function index(){
@@ -41,12 +51,14 @@ class ProductController extends Controller
         $product = Product::create($request->all());
         if($request->stock == 0 && $request->status=='available'){
             // session()->put('error','if available stock cannot be 0');
-            session()->flash('error','if available stock cannot be 0');
-            return redirect()->back();
+            // session()->flash('error','if available stock cannot be 0');
+            return redirect()->back()
+                            ->withErrors('if available stock cannot be 0');
         }
-        session()->flash('success',"You have succesfully created product title \" {$product->title} \" product");
+        // session()->flash('success',"You have succesfully created product title \" {$product->title} \" product");
         // session()->forget('error');
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')
+                        ->withSuccess("You have succesfully created product title \" {$product->title} \" product");
     }
 
     
@@ -79,11 +91,13 @@ class ProductController extends Controller
         $product = Product::findOrFail($product);
         if(request()->stock == 0 && request()->status=='available'){
             // session()->put('error','if available stock cannot be 0');
-            session()->flash('error','if available stock cannot be 0');
-            return redirect()->back();
+            // session()->flash('error','if available stock cannot be 0');
+            return redirect()->back()
+                                ->withErrors('if available stock cannot be 0');
         }
         $product->update(request()->all());
-       return redirect()->route('products.index');;
+       return redirect()->route('products.index')
+                        ->withSuccess("You have succesfully Updated product title \" {$product->title} \" product");;
     }
 
     public function destroy($product){
@@ -91,7 +105,8 @@ class ProductController extends Controller
         $product = Product::findOrFail($product);
         
         $product->delete();
-        session()->flash('success',"You have succesfully deleted product id {$product->id}");
-        return redirect()->route('products.index');
+        // session()->flash('success',"You have succesfully deleted product id {$product->id}");
+        return redirect()->route('products.index')
+                        ->withSuccess("You have succesfully deleted product id {$product->id}");
     }
 }

@@ -1,10 +1,10 @@
-@extends('layouts.master')
+@extends('layouts.app')
 @section('content')
     
 
     <h1>This is main product page</h1>
     <div>
-        <a href="{{route('products.create')}}">Create</a>
+        <a href="{{route('products.create')}}" class="btn btn-success mb-3">Create</a>
     </div>
     @if (empty($products))
         <div class="alert alert-warning">
@@ -38,12 +38,12 @@
                         <td>{{$product->price}}</td>
                         <td>{{$product->stock}}</td>
                         <td>{{$product->status}}</td>
-                        <td> <a href="{{route('products.show',['product'=>$product->id])}}">Show</a> |
-                            <a href="{{route('products.edit',['product'=>$product->id])}}">Edit</a> 
-                            <form method="POST" action="{{route('products.destroy',['product'=>$product->id])}}">
+                        <td> <a href="{{route('products.show',['product'=>$product->id])}}" class="btn btn-link">Show</a> |
+                            <a href="{{route('products.edit',['product'=>$product->id])}}" class="btn btn-link">Edit</a> 
+                            <form class="d-inline" method="POST" action="{{route('products.destroy',['product'=>$product->id])}}">
                                 @csrf 
                                 @method('DELETE')
-                                <button type="submit"> Delete </button>
+                                <button type="submit" class="btn btn-link"> Delete </button>
                             </form>
                         </td>
                     </tr>
