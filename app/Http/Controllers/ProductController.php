@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
-use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -37,34 +37,33 @@ class ProductController extends Controller
         return view('products.create');
     }
 
-    public function store(Request $request){
+    public function store(ProductRequest $request, Product $product){
         //dd($request, $request->title,$request->all());
 
-        $validation_rules = [
-            'title' => ['required','max:255'],
-            'description'=>['required','max:1000'],
-            'price' => ['required','min:1'],
-            'stock' => ['required','min:0'],
-            'status' => ['required','in:available,unavailable'],
-        ];
-        $request->validate($validation_rules);
-        $product = Product::create($request->all());
-        if($request->stock == 0 && $request->status=='available'){
-            // session()->put('error','if available stock cannot be 0');
-            // session()->flash('error','if available stock cannot be 0');
-            return redirect()->back()
-                            ->withErrors('if available stock cannot be 0');
-        }
-        // session()->flash('success',"You have succesfully created product title \" {$product->title} \" product");
-        // session()->forget('error');
+        // $validation_rules = [
+        //     'title' => ['required','max:255'],
+        //     'description'=>['required','max:1000'],
+        //     'price' => ['required','min:1'],
+        //     'stock' => ['required','min:0'],
+        //     'status' => ['required','in:available,unavailable'],
+        // ];
+        // $request->validate($validation_rules);
+        // 
+        // if($request->stock == 0 && $request->status=='available'){
+            
+        //     return redirect()->back()
+        //                     ->withInput(($request->all()))
+        //                     ->withErrors('if available stock cannot be 0');
+        // }
+        $product = Product::create($request->validated());
         return redirect()->route('products.index')
                         ->withSuccess("You have succesfully created product title \" {$product->title} \" product");
     }
 
     
-    public function show($product){
+    public function show(Product $product){
         // $product = DB::table('products')->where('id',$product)->first();
-        $product = Product::findOrFail($product);
+        // $product = Product::findOrFail($product);
         //dd($product);
         return view('products.show')->with([
             'product'=>$product
@@ -78,31 +77,16 @@ class ProductController extends Controller
         ]);
     }
 
-    public function update($product){
+    public function update(ProductRequest $request, Product $product){
        
-        $validation_rules = [
-            'title' => ['required','max:255'],
-            'description'=>['required','max:1000'],
-            'price' => ['required','min:1'],
-            'stock' => ['required','min:0'],
-            'status' => ['required','in:available,unavailable'],
-        ];
-        request()->validate($validation_rules);
-        $product = Product::findOrFail($product);
-        if(request()->stock == 0 && request()->status=='available'){
-            // session()->put('error','if available stock cannot be 0');
-            // session()->flash('error','if available stock cannot be 0');
-            return redirect()->back()
-                                ->withErrors('if available stock cannot be 0');
-        }
-        $product->update(request()->all());
+       $product->update($request->all());
        return redirect()->route('products.index')
                         ->withSuccess("You have succesfully Updated product title \" {$product->title} \" product");;
     }
 
-    public function destroy($product){
+    public function destroy(Product $product){
         
-        $product = Product::findOrFail($product);
+        // $product = Product::findOrFail($product);
         
         $product->delete();
         // session()->flash('success',"You have succesfully deleted product id {$product->id}");
