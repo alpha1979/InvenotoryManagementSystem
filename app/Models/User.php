@@ -1,10 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Order;
-use App\Payment;
-use App\Image;
+
+use App\Models\Order;
+use App\Models\Payment;
+use App\Models\Image;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;

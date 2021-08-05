@@ -1,9 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Cart;
-use App\Order;
+
+use App\Models\Cart;
+use App\Models\Order;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

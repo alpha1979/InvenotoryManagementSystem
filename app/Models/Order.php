@@ -1,10 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Payment;
-use App\User;
-use App\Product;
+
+use App\Models\Payment;
+use App\Models\User;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

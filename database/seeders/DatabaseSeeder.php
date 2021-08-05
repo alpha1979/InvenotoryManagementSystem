@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Product;
-use App\User;
-use App\Order;
-use App\Payment;
-use App\Image;
-use App\Cart;
+use App\Models\Product;
+use App\Models\User;
+use App\Models\Order;
+use App\Models\Payment;
+use App\Models\Image;
+use App\Models\Cart;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
