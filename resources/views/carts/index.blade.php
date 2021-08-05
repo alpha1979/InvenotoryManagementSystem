@@ -7,7 +7,7 @@
 </div>
 @else
 <h4 class="text-center"><strong> Cart Total Amount: </strong>£{{$cart->total}}</h4>
-<a class="btn btn-success mb-3" href="{{route('order.create')}}">Start Order</a>
+<a class="btn btn-success mb-3" href="{{route('orders.create')}}">Start Order</a>
     <div class="row">
         @foreach($cart->products as $product)
        

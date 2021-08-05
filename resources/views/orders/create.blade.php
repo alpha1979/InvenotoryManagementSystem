@@ -3,7 +3,13 @@
     
 
     <h1>Order Detail</h1>
-    
+        <form 
+            class="d-inline"
+            method="POST"
+            action="{{route('orders.store')}}"
+        >
+        @csrf
+        <button class="btn btn-success" type="submit">Place Order</button>
             <div class=" table-responsive">
             <table class="table table-striped">
                 <thead>
