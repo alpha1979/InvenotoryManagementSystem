@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
 use Illuminate\Http\Request;
 
 class MainController extends Controller
@@ -10,9 +11,10 @@ class MainController extends Controller
 
     public function index(){
   
-        // $viewName =config("app.name");
-
-        // dd($viewName);
-        return view('welcome');
+        // $products = Product::where('status','available')->get();
+        $products = Product::available()->get();
+        return view('welcome')->with([
+            'products'=>$products,
+        ]);
     }
 }

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\MainController;
-use App\Http\Controllers\ProductController;
+// use App\Http\Controllers\ProductController;
+use App\Http\Controllers\HomeController;
+// use App\Http\Controllers\ProductCartController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,7 +32,9 @@ Route::get('/',[MainController::class,'index'])->name('main');
 // Route::match(['put','patch'],'products/{product}',[ProductController::class,'update'])->name('products.update');
 
 // Route::delete('products/{product}',[ProductController::class,'destroy'])->name('products.destroy');
-Route::resource('products','ProductController');
+Route::resource('products',ProductController::class);
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::resource('products.carts', ProductCartController::class)->only(['store','destroy']);
